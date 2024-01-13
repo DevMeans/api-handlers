@@ -6,6 +6,7 @@ docker compose up -d
 3. reemplazar las variables de entorno
 # Primas command
 npx prisma init
+npx prisma migrate dev
 # Pro
 
 
