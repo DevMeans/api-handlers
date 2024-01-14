@@ -10,3 +10,4 @@ export async function GET(request: Request,{params}:Segment) {
   }
   return NextResponse.json(todo)
 }
+
