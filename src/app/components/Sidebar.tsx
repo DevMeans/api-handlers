@@ -1,7 +1,8 @@
 import Image from 'next/image'
 import React from 'react'
 import { CiBookmarkCheck, CiLogout } from 'react-icons/ci'
-import { SidebarItem } from './SidebarItem';
+import { SidebarItem } from '.'
+
 
 export const Sidebar = () => {
     return (
