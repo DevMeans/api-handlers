@@ -1,8 +1,17 @@
+import prisma from "@/app/lib/prisma";
 
-export default function RestTodos() {
+
+
+export const metadata = {
+  title: 'Listado de TODO',
+  description: 'Listado de TODO',
+};
+
+export default async function RestTodos() {
+  const todos = await prisma.todo.findMany({ orderBy: { description: 'asc' } })
   return (
     <div>
-      <h1>Rest Todos</h1>
+      {JSON.stringify(todos)}
     </div>
   );
 }

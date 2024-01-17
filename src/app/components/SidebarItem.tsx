@@ -13,8 +13,6 @@ interface Props {
 export const SidebarItem = ({ icon, path, title }: Props) => {
 
     const pathName = usePathname()
-    console.log(path)
-    console.log(pathName)
     return (
         <li>
             <Link href={path}
