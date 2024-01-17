@@ -12,7 +12,7 @@ export default async function RestTodos() {
   const todos = await prisma.todo.findMany({ orderBy: { description: 'asc' } })
   return (
     <div>
-      <TodosGrid />
+      <TodosGrid  todos={todos}/>
     </div>
   );
 }
