@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
 import prisma from "@/app/lib/prisma";
 import { TodosGrid } from '../../todos/components/TodosGrid';
 import { NewTodo } from "@/app/todos";
@@ -16,8 +18,8 @@ export default async function RestTodos() {
       <div className="w-full px-3 mx-5 mb-5">
         <NewTodo />
       </div>
-      
-      <TodosGrid  todos={todos}/>
+
+      <TodosGrid todos={todos} />
     </div>
   );
 }
