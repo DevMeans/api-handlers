@@ -12,7 +12,7 @@ datasource db {
 
 model Todo {
   id          String   @id @default(uuid())
-  description String
+  description String   @default("Sin descripcion")
   complete    Boolean  @default(false)
   createAt    DateTime @default(now())
   updateAt    DateTime @updatedAt
