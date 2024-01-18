@@ -2,7 +2,7 @@ import Image from 'next/image'
 import React from 'react'
 import { CiBookmarkCheck, CiLogout } from 'react-icons/ci'
 import { SidebarItem } from '.'
-import { IoCalendarOutline, IoCheckboxOutline, IoListOutline } from 'react-icons/io5';
+import { IoCalendarOutline, IoCheckboxOutline, IoCodeWorkingOutline, IoListOutline } from 'react-icons/io5';
 interface Props {
     icon: React.ReactNode;
     path: string;
@@ -27,7 +27,13 @@ const menuItems: Props[] = [
         title: 'Server Action',
         path: '/dashboard/server-todos'
 
-    }
+    },
+    {
+        icon: <IoCodeWorkingOutline />,
+        title: 'Cookies',
+        path: '/dashboard/cookies'
+
+    },
 ]
 export const Sidebar = () => {
     return (
