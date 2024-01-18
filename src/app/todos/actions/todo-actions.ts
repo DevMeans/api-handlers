@@ -2,6 +2,7 @@
 
 import prisma from "@/app/lib/prisma"
 import { Todo } from '@prisma/client';
+import { revalidatePath } from "next/cache";
 
 export const toggleTodo = async(id:string,complete:boolean):Promise<Todo>=>{
     
@@ -14,6 +15,7 @@ export const toggleTodo = async(id:string,complete:boolean):Promise<Todo>=>{
             where:{id},
             data:{complete}
         })
+        revalidatePath('/dashboard/server-todos')
         return updateTodo
 
 }
