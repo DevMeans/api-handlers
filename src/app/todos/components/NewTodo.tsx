@@ -3,23 +3,23 @@
 
 import { FormEvent, useState } from "react";
 import { IoTrashOutline } from "react-icons/io5";
-import * as api from '@/app/todos/helpers/todos';
-import { useRouter } from "next/navigation";
+//import * as api from '@/app/todos/helpers/todos';
 
+import { addTodo, deleteComplete } from '../actions/todo-actions';
 
 export const NewTodo = () => {
-    const router = useRouter()
+
     const [description, setDescription] = useState('')
     const onSubmit = async (e: FormEvent) => {
         e.preventDefault()
         if (description.trim().length === 0) return;
-        api.createTodo(description);
+        await addTodo(description);
         setDescription('')
-        router.refresh()
+        //router.refresh()
     }
     const deleteTodo = async () => {
-        api.deleteTodo();
-        router.refresh()
+        await deleteComplete()
+        //router.refresh()
     }
     return (
         <form onSubmit={onSubmit} className='flex w-full'>
@@ -34,7 +34,7 @@ export const NewTodo = () => {
 
             <span className='flex flex-1'></span>
 
-            <button onClick={deleteTodo}
+            <button onClick={() => deleteTodo()} //Cuando manda solo {deleteTodo} tambien se mandaria el event y todas sus propiedades
                 //TODO: onClick={ () => deleteCompleted() }
                 type='button' className="flex items-center justify-center rounded ml-2 bg-red-400 p-2 text-white hover:bg-red-700 transition-all">
                 <IoTrashOutline />
