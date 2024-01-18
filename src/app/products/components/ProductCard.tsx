@@ -3,7 +3,8 @@
 import Image from "next/image"
 import { IoAddCircleOutline, IoTrashOutline } from "react-icons/io5"
 import { Star } from './Star';
-import { addProductToCard } from "@/app/shoping-cart/actions/actions";
+import { addProductToCard, removeProductFromCart } from "@/app/shoping-cart/actions/actions";
+import { useRouter } from "next/navigation";
 interface Props {
     id: string;
     name: string;
@@ -13,8 +14,14 @@ interface Props {
 }
 
 export const ProductCard = ({ id, name, price, rating, image }: Props) => {
-    const  onAddToCard =()=>{
+    const router = useRouter()
+    const onAddToCard = () => {
         addProductToCard(id)
+        router.refresh()
+    }
+    const onRemoveCard = () => {
+        removeProductFromCart(id)
+        router.refresh()
     }
     return (
         <div className="bg-white shadow rounded-lg max-w-sm dark:bg-gray-800 dark:border-gray-100">
@@ -38,13 +45,13 @@ export const ProductCard = ({ id, name, price, rating, image }: Props) => {
 
 
                     {/* Stars */}
-                  
+
                     {
-                        Array(rating).fill(0).map((x,i)=>(
-                              <Star key={i}></Star>
+                        Array(rating).fill(0).map((x, i) => (
+                            <Star key={i}></Star>
                         ))
                     }
-                  
+
 
                     {/* Rating Number */}
                     <span className="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-3">
@@ -55,15 +62,14 @@ export const ProductCard = ({ id, name, price, rating, image }: Props) => {
 
                 {/* Price and Add to Cart */}
                 <div className="flex items-center justify-between">
-                    <span className="text-3xl font-bold text-gray-900 dark:text-white">${price}</span>
-
+                    <span className="text-3xl font-bold text-gray-900 dark:text-white">${price.toFixed(2)}</span>
                     <div className="flex">
                         <button
-                        onClick={onAddToCard}
+                            onClick={onAddToCard}
                             className="text-white mr-2 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                             <IoAddCircleOutline size={25} />
                         </button>
-                        <button
+                        <button onClick={onRemoveCard}
                             className="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
                             <IoTrashOutline size={20} />
                         </button>
