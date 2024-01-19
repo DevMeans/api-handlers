@@ -12,9 +12,7 @@ export default function ProfilePage() {
     }, [])
     return (
         <div>
-            <span className="block">{session?.user?.name || 'No name'}</span>
-            <span className="block">{session?.user?.image|| 'No name'}</span>
-            <span className="block">{session?.user?.email}</span>
+           {JSON.stringify(session?.user) }
         </div>
     );
 }

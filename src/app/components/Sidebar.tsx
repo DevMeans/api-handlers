@@ -53,6 +53,7 @@ const menuItems: Props[] = [
 ]
 export const Sidebar = async () => {
     const session = await getServerSession(authOption)
+    const userRoles = (session?.user?.roles)?.join(',')
     if (!session) {
         redirect('/api/auth/signin')
     }
@@ -82,8 +83,8 @@ export const Sidebar = async () => {
                         height={150}
                     />
                     <h5 className="hidden mt-4 text-xl font-semibold text-gray-600 lg:block">{session.user?.name || 'User'}</h5>
-                    <span className="hidden text-gray-400 lg:block">Admin</span>
                 </div>
+                    <span className="hidden text-gray-400 lg:block capitalize">{ userRoles}</span>
                 <ul className="space-y-2 tracking-wide mt-8">
                     {
                         menuItems.map((item) => {
