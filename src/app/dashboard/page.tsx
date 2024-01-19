@@ -5,7 +5,12 @@ export default function DashboardPage() {
 
     <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
       {/* TODO: src/components <WidgetItem /> */}
-      <WidgetItem />
+      <WidgetItem title='Aun no se que poner' >
+        <div className='text-center'>
+            <h1 className='font-bold text-3xl'>Hola desde widget</h1>
+        </div>
+      
+      </WidgetItem>
     </div>
 
   );
