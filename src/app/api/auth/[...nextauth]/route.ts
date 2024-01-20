@@ -10,6 +10,7 @@ import { PrismaAdapter } from "@auth/prisma-adapter"
 
 import { Adapter } from "next-auth/adapters";
 import prisma from "@/app/lib/prisma";
+import { signInEmailPassword } from "@/app/auth/actions/auth-actions";
 
 
 
@@ -33,14 +34,13 @@ export const authOption: NextAuthOptions = {
             // e.g. domain, username, password, 2FA token, etc.
             // You can pass any HTML attribute to the <input> tag through the object.
             credentials: {
-                
-                username: { label: "Email", type: "text", placeholder: "Usuario" },
+
+                email: { label: "Email", type: "text", placeholder: "Usuario" },
                 password: { label: "Password", type: "password", placeholder: "********" }
             },
             async authorize(credentials, req) {
                 // Add logic here to look up the user from the credentials supplied
-                const user = { id: "1", name: "J Smith", email: "jsmith@example.com" }
-
+                const user = await signInEmailPassword(credentials!.email, credentials!.password)
                 if (user) {
                     // Any object returned will be saved in `user` property of the JWT
                     return user
