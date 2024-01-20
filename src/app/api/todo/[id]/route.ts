@@ -1,3 +1,4 @@
+import { getUserSessionServer } from '@/app/auth/actions/auth-actions';
 import prisma from '@/app/lib/prisma';
 import { Segment } from 'next/dist/server/app-render/types';
 import { NextResponse, NextRequest } from 'next/server'
@@ -7,6 +8,8 @@ const postSchema = yup.object({
   complete: yup.boolean().optional().default(false)
 })
 export async function GET(request: Request, { params }: Segment) {
+
+  
   const { id } = params
   const todo = await prisma.todo.findFirst({ where: { id } })
   if (!todo) {
@@ -16,6 +19,12 @@ export async function GET(request: Request, { params }: Segment) {
 }
 
 export async function PUT(request: Request, { params }: Segment) {
+
+  const user = await getUserSessionServer()
+  if (!user) {
+      return NextResponse.json('No autorizado', { status: 401 })
+  }
+
   const { id } = params
   const todo = await prisma.todo.findFirst({ where: { id } })
   if (!todo) {
@@ -23,7 +32,7 @@ export async function PUT(request: Request, { params }: Segment) {
   }
   try {
     const { complete, description } = await postSchema.validate(await request.json())
-    const todo = await prisma.todo.update({ data: { complete, description, }, where: { id } })
+    const todo = await prisma.todo.update({ data: { complete, description,userId:user.id }, where: { id } })
     return NextResponse.json(todo)
   } catch (error) {
     return NextResponse.json(error, { status: 400 })

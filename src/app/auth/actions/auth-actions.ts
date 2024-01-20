@@ -1,5 +1,14 @@
+'use server'
+import { authOption } from "@/app/api/auth/[...nextauth]/route";
 import prisma from "@/app/lib/prisma";
 import bcrypt from 'bcryptjs'
+import { getServerSession } from "next-auth";
+
+export const getUserSessionServer = async () => {
+    const session = await getServerSession(authOption)
+    return session?.user
+}
+
 export const signInEmailPassword = async (email: string, password: string) => {
     if (!email || !password) return null;
     const user = await prisma.user.findUnique({ where: { email } })
